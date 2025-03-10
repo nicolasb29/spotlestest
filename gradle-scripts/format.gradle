@@ -1,0 +1,48 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath "com.diffplug.spotless:spotless-plugin-gradle:7.0.2"
+        classpath "com.diffplug.spotless:spotless-lib-extra:3.0.2"
+    }
+}
+
+apply plugin: com.diffplug.gradle.spotless.SpotlessPlugin
+
+spotless {
+    java {
+        target fileTree(projectDir) {
+            include '**/*.java'
+            exclude '**/build/**/*', '**/out/**/*', '.gradle'
+        }
+        importOrder 'java', 'jakarta', 'javax', 'org', 'com', ''ava
+        //removeUnusedImports()
+        eclipse()
+    }
+    sql {
+        target fileTree(projectDir) {
+            include '**/*.sql'
+            exclude '**/build/**/*', '.gradle'
+        }
+        dbeaver()
+    }
+    groovyGradle {
+        target fileTree(projectDir) {
+            include '**/*.gradle'
+            exclude '**/build/**/*', '.gradle'
+        }
+        greclipse()
+        //paddedCell()
+    }
+    format 'misc', {
+        target fileTree(projectDir) {
+            include '**/*.md', '**/.gitignore', '**/*.yml', '**/*.xml'
+            exclude '**/build/**/*', '.gradle'
+        }
+        trimTrailingWhitespace()
+        leadingTabsToSpaces()
+        endWithNewline()
+    }
+}
