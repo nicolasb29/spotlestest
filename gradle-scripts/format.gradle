@@ -17,7 +17,7 @@ spotless {
             include '**/*.java'
             exclude '**/build/**/*', '**/out/**/*', '.gradle'
         }
-        importOrder 'java', 'jakarta', 'javax', 'org', 'com', ''ava
+        importOrder 'java', 'jakarta', 'javax', 'org', 'com'
         //removeUnusedImports()
         eclipse()
     }
